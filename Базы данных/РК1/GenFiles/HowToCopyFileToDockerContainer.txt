@@ -1,0 +1,4 @@
+docker cp Cars.csv pgDB:/Cars.csv
+docker cp Drivers.csv pgDB:/Drivers.csv
+docker cp DriversCars.csv pgDB:/DriversCars.csv
+docker cp Fines.csv pgDB:/Fines.csv

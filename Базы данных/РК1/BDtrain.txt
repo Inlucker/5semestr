@@ -1,0 +1,53 @@
+--1)Найти все пары вида <дата_нарушения, ФИО водителя>
+SQL:
+select F.FineDate, D.FIO
+from Fines F join Drivers D on F.DriverID = D.DriverID
+
+РА:
+(Fines join Drivers)[FineDate, FIO]
+
+ИК:
+range of Dx is Drivers
+range of Fx is Fines
+(Fx.FineDate, Dx.FIO) where Fx.DriverId = Dx.DriverID
+
+--2)Найти все автомабили, водители которых не получили ни одного штрафа
+SQL:
+select *
+from rk1.cars C
+where CarID in (select carid
+				from rk1.DriversCars DC
+				where not exists (select *
+								  from rk1.Fines F
+								  where DC.DriverID = F.DriverID))
+								  
+РА:
+(Cars join DriversCars join (Fines[DriversID] minus (summarize Fines per Fines{DriverID})[DriverID]))[CarID, Model]
+
+ИК:
+range of Cx is Cars
+range of DCx is DriversCars
+range of Fx is Fines
+(Cx.CarID) where exists DCx ((Cx.CID = DCx.CID) and not exists Fx (Fx.DID = DCx.DID))
+
+--3)Найти год (FineDate?), в котором было выписано наибольшее количество штрафов
+SQL:
+with datesCnts (FineDate, cnt) as
+(
+	select FineDate, count(FineID) as cnt
+	from rk1.Fines
+	group by FineDate
+)
+select FineDate
+from datesCnts
+where cnt = (select max(cnt)
+			 from datesCnts)
+
+РА:
+((summarize F per F{FineDate} add count as cnt) where cnt = max(cnt))[FineDate]
+
+ИК:
+range of Fx is Fines
+range of Fy is Fines.FineDate
+range of Fcnt is Fy.FineDate, count(Fx where Fx.FineType = Fy.FineType) as cnt
+Fcnt.FineDate where Fcnt.cnt = max(Fcnt.cnt)
