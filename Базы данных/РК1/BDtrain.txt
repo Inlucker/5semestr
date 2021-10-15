@@ -1,3 +1,4 @@
+--Билет 6
 --1)Найти все пары вида <дата_нарушения, ФИО водителя>
 SQL:
 select F.FineDate, D.FIO
@@ -51,3 +52,55 @@ range of Fx is Fines
 range of Fy is Fines.FineDate
 range of Fcnt is Fy.FineDate, count(Fx where Fx.FineType = Fy.FineType) as cnt
 Fcnt.FineDate where Fcnt.cnt = max(Fcnt.cnt)
+
+--Билет 1
+--1)Найти все пары вида <ФИО водителя, модель автомобиля>
+SQL:
+select DDC.FIO, C.Model
+from (rk1.Drivers D join rk1.DriversCars DC on D.DriverID = DC.DriverID) as DDC join rk1.Cars C on DDC.CarId = C.CarID
+
+РА:
+((Drivers join DriversCars) join Cars)[FIO, Model]
+
+ИК:
+range of Dx is Drivers
+range of DCx is DriversCars
+range of Cx is Cars
+(Dx.FIO, Cx.Model) where (Dx.DriverID = DCx.DriverID AND Dx.DriverID = DCx.DriverID)--низя????
+(Dx.FIO, Cx.Model) where exists DCx(Dx.DriverID = DCx.DriverID AND Cx.CarID = DCx.CarID) 
+
+--2)Найти все штрафы водителей, автомобили которых были зарегестрированы в 2020 году
+SQL:
+select *
+from rk1.Fines F
+where F.DriverID in (select DriverID
+					 from rk1.DriversCars DC join rk1.Cars C on DC.CarID = C.CarID
+					 where C.Year = 2020)
+
+РА:
+((FineID join DriversCars) join (Cars where Cars.Year = 2020))[FineID]
+
+
+ИК:
+range of Fx is Fines
+range of DCx is DriversCars
+range of Cx is Cars where Year = 2020
+Fx.FineID where exists DCx(Fx.DriverID = DCx.DriverID AND exists Cx(DCx.CarID = Cx.CarID) )
+
+
+--3)Вычислить общую сумму штрафов водителей в 2019 году
+SQL:
+select sum(amount) as total
+from rk1.Fines
+where FineDate like '2019%' 
+
+РА:
+(SUMMARIZE Fines PER Fines{FineDate} ADD SUM(amount) as total) where Fines.FineDate = "2019" --Первый вариант
+
+EXTEND Fines ADD '1' AS sameCol -- расширение (не нужна)
+SUMMARIZE (EXTEND ((SUMMARIZE Fines PER Fines{FineDate} ADD SUM(amount) as datetotal) where Fines.FineDate = "2019") ADD '1' AS sameCol) as DA PER DA{sameCol} ADD SUM(datetotal) as yeartotal --Хуета
+
+
+ИК: 
+range of Fx is Fines where FineDate like '2019%'
+sum(Fx.Amount)
