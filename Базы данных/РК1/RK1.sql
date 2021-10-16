@@ -54,11 +54,12 @@ delete from rk1.Cars;
 delete from rk1.Drivers;
 
 --SELECTS
---Найти все пары вида <дата_нарушения, ФИО водителя>
+--Билет 6
+--1)Найти все пары вида <дата_нарушения, ФИО водителя>
 select F.FineDate, D.FIO
 from rk1.Fines F join rk1.Drivers D on F.DriverID = D.DriverID
 
---Найти все автомабили, водители которых не получили ни одного штрафа
+--2)Найти все автомабили, водители которых не получили ни одного штрафа
 select *
 from rk1.cars C
 where CarID in (select carid
@@ -66,8 +67,18 @@ where CarID in (select carid
 				where not exists (select *
 								  from rk1.Fines F
 								  where DC.DriverID = F.DriverID))
-								  
---Найти год (FineDate?), в котором было выписано наибольшее количество штрафов
+
+--Илья
+select distinct CarID 
+from rk1.DriversCars DC
+where not exists (select *
+				  from rk1.Fines F
+				  where DC.DriverID = F.DriverID)
+				  
+select DriverID
+from rk1.fines
+group by DriverID
+--3)Найти год (FineDate?), в котором было выписано наибольшее количество штрафов
 --Моё вариант 1
 with datesCnts (FineDate, cnt) as
 (
@@ -91,3 +102,53 @@ select FineDate
 from groupF
 where cnt = (select max(cnt)
              from groupF)
+             
+--Билет 1      
+--1)Найти все пары вида <ФИО водителя, модель автомобиля>
+select DDC.FIO, C.Model
+from (rk1.Drivers D join rk1.DriversCars DC on D.DriverID = DC.DriverID) as DDC join rk1.Cars C on DDC.CarId = C.CarID
+
+--2)Найти все штрафы водителей, автомобили которых были зарегестрированы в 2020 году
+select *
+from rk1.Fines F
+where F.DriverID in (select DriverID
+					 from rk1.DriversCars DC join rk1.Cars C on DC.CarID = C.CarID
+					 where C.Year = 2021)
+
+
+--3)Вычислить общую сумму штрафов водителей в 2019 году
+select sum(amount)
+from rk1.Fines
+where (select Extract(YEAR from FineDate)) = '2021'
+
+--Билет 8
+--1) Найти все тройки вида 
+
+--2) Найти водителей, владеющих хотя бы одной машиной красного цвета
+select *
+from rk1.Drivers D
+where DriverID in (select DC.DriverID
+				   from rk1.DriversCars DC
+				   where CarID in (select CarID
+								   from rk1.Cars C))
+								   
+select DC.DriverID
+from rk1.DriversCars DC join rk1.Drivers D on D.DriverID=DC.DriverID
+
+--3) Найти машины, которыми владеют более 2ух водителей
+--Мой вариант
+with DriversCount (CarID, cnt) as
+(
+	select CarID, count(DriverID) as cnt
+	from rk1.DriversCars DC
+	group by CarID
+)
+select CarID
+from DriversCount
+where cnt > 2
+
+--Чужой вариант
+select CarID
+from rk1.DriversCars DC
+group by CarID
+having count(*) >2

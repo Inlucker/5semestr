@@ -14,6 +14,7 @@ range of Fx is Fines
 
 --2)Найти все автомабили, водители которых не получили ни одного штрафа
 SQL:
+--Мой вариант
 select *
 from rk1.cars C
 where CarID in (select carid
@@ -21,15 +22,25 @@ where CarID in (select carid
 				where not exists (select *
 								  from rk1.Fines F
 								  where DC.DriverID = F.DriverID))
+--Илья
+select distinct CarID 
+from rk1.DriversCars DC
+where not exists (select *
+				  from rk1.Fines F
+				  where DC.DriverID = F.DriverID)
 								  
 РА:
-(Cars join DriversCars join (Fines[DriversID] minus (summarize Fines per Fines{DriverID})[DriverID]))[CarID, Model]
+((Cars join DriversCars) join (Drivers[DriversID] minus (summarize Fines per Fines{DriverID})[DriverID]))[CarID, Model] --верно
 
 ИК:
 range of Cx is Cars
 range of DCx is DriversCars
 range of Fx is Fines
-(Cx.CarID) where exists DCx ((Cx.CID = DCx.CID) and not exists Fx (Fx.DID = DCx.DID))
+(Cx.CarID, Cx.Model) where exists DCx ((Cx.CarID = DCx.CarID) and not exists Fx (Fx.DriverID = DCx.DriverID))
+
+range of DCx is DriversCars
+range of Fx is Fines
+(DCx.CarID) where not exists Fx(Fx.DID = DCx.DID) --Не получается disctinct (будут дубли)
 
 --3)Найти год (FineDate?), в котором было выписано наибольшее количество штрафов
 SQL:
@@ -45,13 +56,16 @@ where cnt = (select max(cnt)
 			 from datesCnts)
 
 РА:
-((summarize F per F{FineDate} add count as cnt) where cnt = max(cnt))[FineDate]
+((summarize Fines per Fines{FineDate} add count as cnt) where cnt = max(cnt))[FineDate]
 
 ИК:
+--???????????????????????????????
 range of Fx is Fines
 range of Fy is Fines.FineDate
 range of Fcnt is Fy.FineDate, count(Fx where Fx.FineType = Fy.FineType) as cnt
 Fcnt.FineDate where Fcnt.cnt = max(Fcnt.cnt)
+
+Fcnt.FineDate where Fcnt.cnt = max(Fcnt, cnt)--Верно?
 
 --Билет 1
 --1)Найти все пары вида <ФИО водителя, модель автомобиля>
@@ -78,7 +92,7 @@ where F.DriverID in (select DriverID
 					 where C.Year = 2020)
 
 РА:
-((FineID join DriversCars) join (Cars where Cars.Year = 2020))[FineID]
+((Fines join DriversCars) join (Cars where Cars.Year = 2020))[FineID]
 
 
 ИК:
@@ -98,9 +112,63 @@ where FineDate like '2019%'
 (SUMMARIZE Fines PER Fines{FineDate} ADD SUM(amount) as total) where Fines.FineDate = "2019" --Первый вариант
 
 EXTEND Fines ADD '1' AS sameCol -- расширение (не нужна)
-SUMMARIZE (EXTEND ((SUMMARIZE Fines PER Fines{FineDate} ADD SUM(amount) as datetotal) where Fines.FineDate = "2019") ADD '1' AS sameCol) as DA PER DA{sameCol} ADD SUM(datetotal) as yeartotal --Хуета
+SUMMARIZE (EXTEND ((SUMMARIZE Fines PER Fines{FineDate} ADD SUM(amount) as datetotal) where Fines.FineDate like '2019%') ADD '1' AS sameCol) as DA PER DA{sameCol} ADD SUM(datetotal) as yeartotal --Хуета
 
 
 ИК: 
 range of Fx is Fines where FineDate like '2019%'
 sum(Fx.Amount)
+
+
+--Билет 8
+--1) Найти все тройки вида 
+
+--2) Найти водителей, владеющих хотя бы одной машиной красного цвета
+SQL:
+select *
+from rk1.Drivers D
+where DriverID in (select DC.DriverID
+				   from rk1.DriversCars DC
+				   where CarID in (select CarID
+								   from rk1.Cars C
+								   where C.Color = 'red'))
+								   
+РА:
+((DriversCars join Drivers) join (Cars where Color = 'red'))[DriverID] --с повторами
+
+SUMMARIZE ((DriversCars join Drivers) join (Cars where Color = 'red')) PER DriversCars{DriverID} --без повторов
+
+
+ИК:
+range of Cx is Cars where Color = 'red'
+range of Dx is Drivers
+range of DCx is DriversCars
+(Dx.DriverID) where exists DCx(Dx.DriverID = DCx.DriverID and exists Cx(DCx.CarID = Cx.CarID and Cx.Color = 'red'))
+
+--3) Найти машины, которыми владеют более 2ух водителей
+SQL:
+--Мой вариант
+with DriversCount (CarID, cnt) as
+(
+	select CarID, count(DriverID) as cnt
+	from rk1.DriversCars DC
+	group by CarID
+)
+select CarID
+from DriversCount
+where cnt > 2
+
+--Чужой вариант
+select CarID
+from rk1.DriversCars DC
+group by CarID
+having count(*) >2
+
+РА:
+((SUMMARIZE DriversCars PER DriversCars{CarID} ADD COUNT AS cnt) where CNT > 2)[CarID]
+
+ИК:
+--Верно ли?
+range of DCx is DriveresCars
+range of Cx is Cars
+Cx.CarID where count (DCx where DCX.CarID = Cx.CarID) > 2 --Я ДУМАЮ ЧТО ЭТО ВЕРНО НА 99.(9)%
