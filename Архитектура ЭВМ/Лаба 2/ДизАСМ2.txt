@@ -1,0 +1,75 @@
+riscv64-unknown-elf-as --march=rv32i my_opt.s -o my_opt.o
+my_opt.s: Assembler messages:
+my_opt.s: Warning: end of file not at end of a line; newline inserted
+riscv64-unknown-elf-ld -b elf32-littleriscv -T link.ld my_opt.o -o my_opt.elf
+riscv64-unknown-elf-objdump -D -M numeric,no-aliases -t my_opt.elf
+
+my_opt.elf:     file format elf32-littleriscv
+
+SYMBOL TABLE:
+80000000 l    d  .text  00000000 .text
+80000040 l    d  .data  00000000 .data
+00000000 l    df *ABS*  00000000 my_opt.o
+00000009 l       *ABS*  00000000 len
+00000002 l       *ABS*  00000000 enroll
+00000004 l       *ABS*  00000000 elem_sz
+80000040 l       .data  00000000 _x
+8000001c l       .text  00000000 lp
+80000024 l       .text  00000000 lt1
+8000002c l       .text  00000000 lt2
+8000003c l       .text  00000000 lp2
+80000000 g       .text  00000000 _start
+80000064 g       .data  00000000 _end
+
+
+
+Disassembly of section .text:
+
+80000000 <_start>:
+80000000:       00000097                auipc   x1,0x0
+80000004:       04008093                addi    x1,x1,64 # 80000040 <_x>
+80000008:       02408a13                addi    x20,x1,36
+8000000c:       0000af83                lw      x31,0(x1)
+80000010:       0040a103                lw      x2,4(x1)
+80000014:       0080a183                lw      x3,8(x1)
+80000018:       00408093                addi    x1,x1,4
+
+8000001c <lp>:
+8000001c:       01f16463                bltu    x2,x31,80000024 <lt1>
+80000020:       00200fb3                add     x31,x0,x2
+
+80000024 <lt1>:
+80000024:       01f1e463                bltu    x3,x31,8000002c <lt2>
+80000028:       00300fb3                add     x31,x0,x3
+
+8000002c <lt2>:
+8000002c:       00808093                addi    x1,x1,8
+80000030:       0000a103                lw      x2,0(x1)
+80000034:       0040a183                lw      x3,4(x1)
+80000038:       ff4092e3                bne     x1,x20,8000001c <lp>
+
+8000003c <lp2>:
+8000003c:       0000006f                jal     x0,8000003c <lp2>
+
+Disassembly of section .data:
+
+80000040 <_x>:
+80000040:       0001                    c.addi  x0,0
+80000042:       0000                    unimp
+80000044:       0002                    0x2
+80000046:       0000                    unimp
+80000048:       00000003                lb      x0,0(x0) # 0 <enroll-0x2>
+8000004c:       0004                    c.addi4spn      x9,x2,0
+8000004e:       0000                    unimp
+80000050:       0005                    c.addi  x0,1
+80000052:       0000                    unimp
+80000054:       0006                    0x6
+80000056:       0000                    unimp
+80000058:       00000007                0x7
+8000005c:       0031                    c.addi  x0,12
+8000005e:       0000                    unimp
+80000060:       0009                    c.addi  x0,2
+        ...
+riscv64-unknown-elf-objcopy -O binary --reverse-bytes=4 my_opt.elf my_opt.bin
+xxd -g 4 -c 4 -p my_opt.bin my_opt.hex
+rm my_opt.bin my_opt.elf my_opt.o
