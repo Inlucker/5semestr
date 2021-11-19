@@ -168,7 +168,7 @@ $$ LANGUAGE plpgsql;
 CALL index_info('rk2', 'pg_proc');
 
 --Тест (Мета-данные)
-SELECT * FROM rk2.pg_catalog.pg_indexes WHERE tablename = 'pg_proc';
+SELECT * FROM pg_indexes WHERE tablename = 'pg_proc';
 
 --Тест2 (format)
 create or replace procedure update_table(t_name text)
@@ -212,3 +212,30 @@ copy (select row_to_json(d) from department d) to '/department.json';
 
 select * from department;
 select row_to_json(d) from department d;
+
+--2ой вариант, 3е задание
+-- Создать хранимую процедуру с входным параметром, которая выводит
+-- имена и описания типа объектов (только хранимых процедур и скалярных
+-- функций), в тексте которых на языке SQL встречается строка, задаваемая
+-- параметром процедуры. Созданную хранимую процедуру протестировать.
+
+create or replace procedure task_3
+(
+    str_ text
+)
+AS $$
+DECLARE
+    elem record;
+BEGIN
+    FOR elem IN
+        select routine_name, routine_type
+        from information_schema.routines
+        where routines.routine_definition LIKE CONCAT('%', $1, '%')
+    LOOP
+        raise notice 'name: %, args: %', elem.routine_name,
+                                            elem.routine_type;
+end loop;
+end;
+$$ language plpgsql;
+
+call task_3('routine_name');
