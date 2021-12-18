@@ -213,7 +213,30 @@ where id in (	select employee_id
 						where mtm > '9:00'
 						group by(employee_id, week_number)) r2
 				where lcnt > 3)
-	
+		
+--ÍÅ ÌÎ¨ (Òàíè)
+SELECT distinct department
+FROM employees t1
+WHERE EXISTS
+(
+    SELECT id department
+    FROM employees e
+    WHERE EXISTS
+    (
+        SELECT date_part, COUNT(date_part) AS cnt
+        FROM
+        (
+            SELECT *
+            FROM times, EXTRACT(WEEK FROM date) AS date_part
+            WHERE tm > '09:00:00'
+            AND tp = 1
+            AND employee_id = t1.id
+        ) AS tmp
+        GROUP BY date_part
+        HAVING COUNT(date_part) > 3
+    )
+);
+				
 --ÍÅ ÌÎ¨ (Àíäğåÿ)
 select distinct department
 from employees
@@ -284,6 +307,19 @@ from employees e join
 	on (e.id = t.employee_id)
 where mtm > '9:00'
 group by department
+
+--Ïğàâèëüíî?
+select department, count(*)
+from(select distinct id, department from
+	employees e join
+				(select employee_id, min(tm) as mtm
+				from times
+				group by employee_id, date) t
+		on (e.id = t.employee_id)
+	where mtm > '9:00'
+	group by id, department) r1
+group by id, department
+
 
 --ÎÊÍÎ (py-linq ñëîæíà)
 select department, min(id) over(partition by department)
