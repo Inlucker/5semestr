@@ -1,7 +1,5 @@
 import psycopg2
 from psycopg2 import OperationalError
-import csv
-import time
 from py_linq import *
 import datetime
 
@@ -39,7 +37,7 @@ def execute_read_query(connection, query):
         cursor.execute(query)
         result = cursor.fetchall()
         return result
-    except Error as e:
+    except OperationalError as e:
         print(f"The error '{e}' occurred")
 
 
