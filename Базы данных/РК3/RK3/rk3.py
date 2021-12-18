@@ -110,7 +110,9 @@ connection = create_connection("rk3", "postgres", "postgres", "localhost", "5432
 # 1 запрос
 q = \
 """
-select
+select distinct department
+from employees e
+where extract(year from age(now(), birth_date)) < 25
 """
 rez = execute_read_query(connection, q)
 print("task1: \n", rez)
@@ -118,7 +120,15 @@ print("task1: \n", rez)
 # 2 запрос
 q = \
 """
-select
+select id, FIO
+from employees e join (	select *
+						from times t
+						where tm = (select min(tm)
+									from times t2
+									where tp = 1
+									and date = CURRENT_DATE)
+						and date = CURRENT_DATE) tmins
+on e.id = tmins.employee_id
 """
 rez = execute_read_query(connection, q)
 print("task2: \n", rez)
@@ -126,7 +136,16 @@ print("task2: \n", rez)
 # 3 запрос
 q = \
 """
-select
+select employee_id
+from (	select employee_id, count(*) cnt
+		from employees e join
+					(select employee_id, min(tm) as mtm
+					from times
+					group by employee_id, date) t
+			on (e.id = t.employee_id)
+		where mtm > '9:00'
+		group by employee_id) r1
+where cnt >= 5
 """
 rez = execute_read_query(connection, q)
 print("task3: \n", rez)
@@ -134,36 +153,46 @@ print("task3: \n", rez)
 # LINQ
 employees = Enumerable(get_Employees())
 #print('employees:')
-# for i in employees:
-#   print(i)
+#for i in employees:
+#    print(i)
 
 times = Enumerable(get_Times())
 #print('times:')
 # for i in times:
 #   print(i)
 
-#QUERY1
-rez1 = ()
-print("LINQ task1:")
+#QUERY1 Найти все отделы, в которых нет сотрудников моложе 25 лет
+rez1 = employees.where(lambda x: (datetime.date.today().year - x['birth_date'].year) < 25)
+rez1 = rez1.distinct(lambda x: x['department'])
+rez1 = rez1.select(lambda x: x['department'])
 for i in rez1:
     print(i)
 
-#QUERY2
-rez2 = ()
-print("LINQ task1:")
+#QUERY2 Найти сотрудника, который пришел сегодня на работу раньше всех
+test_date = datetime.date(2018, 12, 11) # = datetime.date.today() #именно сегодня
+#mtm = times.where(lambda x: x['tp'] == 1 and x['date'] == datetime.date.today()).min(lambda x: x['tm']) #именно сегодня
+mtm = times.where(lambda x: x['tp'] == 1 and x['date'] == test_date).min(lambda x: x['tm']) # для проверки
+tmp = times.where(lambda x: x['tm'] == mtm and x['date'] == test_date) #именно сегодня == datetime.date.today() вместо times[0]['date']
+rez2 = employees.select(lambda x: {'id': x['id'], 'FIO': x['FIO']})
+rez2 = rez2.join(tmp, lambda s1: s1['id'], lambda s2: s2['employee_id'], lambda result: result[0] | result[1])
+rez2 = rez2.select(lambda x: {'id': x['id'], 'FIO': x['FIO']})
+print("LINQ task2:")
+print("mtm = ", mtm)
 for i in rez2:
     print(i)
 
-#QUERY3
-r1 = times.group_by(['employee_id', 'date'], lambda x: [x['employee_id'], str(x['date'])])
-r1 = r1.select(lambda x: {'employee_id': x.select(lambda y: y['employee_id'])[0],
-                          'mtm': x.min(lambda y: y['tm'])})
-r2 = employees
-r3 = r2.join(r1, lambda s1: s1['id'], lambda s2: s2['employee_id'], lambda result: result[0] | result[1])
-r3 = r3.where(lambda x: x['mtm'] > datetime.time(9))
-r3 = r3.group_by(['department'], lambda x: x['department'])
-rez3 = r3.select(lambda x: {'department': x.select(lambda y: y['department'])[0],
-                          'count': x.count()})
+#QUERY3 Найти сотрудников, опоздавших не менее 5-ти раз
+rez3 = times.group_by(['employee_id', 'date'], lambda x: [x['employee_id'], str(x['date'])])
+
+rez3 = rez3.select(lambda x: {  'employee_id': x.select(lambda y: y['employee_id'])[0],
+                                'mtm': x.min(lambda y: y['tm'])})
+tmp = employees
+rez3 = tmp.join(rez3, lambda s1: s1['id'], lambda s2: s2['employee_id'], lambda result: result[0] | result[1])
+rez3 = rez3.where(lambda x: x['mtm'] > datetime.time(9))
+rez3 = rez3.group_by(['employee_id'], lambda x: x['employee_id'])
+rez3 = rez3.select(lambda x: {  'employee_id': x.select(lambda y: y['employee_id'])[0],
+                                'cnt': x.count()})
+rez3 = rez3.where(lambda x: x['cnt'] >= 4) #для проверки >= 4, а так надо >=5
 
 print("LINQ task3:")
 for i in rez3:
