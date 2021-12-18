@@ -205,12 +205,19 @@ where extract(hour from summa) < 8
 -- Вывести все отделы и количество сотрудников хоть раз опоздавших за всю историю учета.
 select department, count(*)
 from employees e join
-		(select employee_id, date, min(tm) as mtm
-		from times
-		group by employee_id, date) t
+			(select employee_id, min(tm) as mtm
+			from times
+			group by employee_id, date) t
 	on (e.id = t.employee_id)
 where mtm > '9:00'
 group by department
+
+select *
+from employees e join
+			(select employee_id, date, min(tm) as mtm
+			from times
+			group by employee_id, date) t
+	on (e.id = t.employee_id)
 
 --ОКНО
 select department, min(id) over(partition by department)
