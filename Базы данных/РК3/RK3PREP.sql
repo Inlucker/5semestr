@@ -202,9 +202,17 @@ where id in
 	 where lcnt > 3)
 	 
 --МОЁ x2
-select distinct department
-from employees e
-where id in ...
+select department
+from employees e 
+where id in (	select employee_id
+				from (	select employee_id, count(date) as lcnt
+						from (  select employee_id, date, min(tm) as mtm, (extract(WEEK from date)) as week_number
+								from times
+								where tp = 1
+								group by employee_id, date) r1
+						where mtm > '9:00'
+						group by(employee_id, week_number)) r2
+				where lcnt > 3)
 	
 --НЕ МОЁ (Андрея)
 select distinct department
