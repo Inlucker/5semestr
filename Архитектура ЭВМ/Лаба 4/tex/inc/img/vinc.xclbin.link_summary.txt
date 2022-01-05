@@ -1,0 +1,902 @@
+<ENTRY>
+{
+ "thisFile": "/iu_home/iu7044/workspace/Alveo_lab1_nikulenko_kernels/vivado_rtl_kernel/rtl_kernel_wizard_0_ex/exports/vinc.xclbin.link_summary",
+ "connectId": "",
+ "serverToken": "",
+ "timestamp": "0"
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Thu Dec  9 01:02:14 2021",
+ "timestampMillis": "1639000934286",
+ "buildStep": {
+  "cmdId": "31a9276a-efc4-4610-b9da-8cacf05fab7e",
+  "name": "v++",
+  "logFile": "/iu_home/iu7044/_x/link/link.steps.log",
+  "commandLine": "/data/Xilinx/Vitis/2020.2/bin/unwrapped/lnx64.o/v++  --xp \"vivado_prop:run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS}={-directive sdx_optimization_effort_high}\" --xp \"misc:report=type report_timing_summary name impl_report_timing_summary_route_design_summary steps {route_design} runs {impl_1} options {-max_paths 10}\" --xp \"misc:report=type report_timing_summary name impl_report_timing_summary_post_route_phys_opt_design_summary steps {post_route_phys_opt_design} runs {impl_1} options {-max_paths 10}\" -l -t hw -o /iu_home/iu7044/workspace/Alveo_lab1_nikulenko_kernels/vivado_rtl_kernel/rtl_kernel_wizard_0_ex/exports/vinc.xclbin -f xilinx_u200_xdma_201830_2 /iu_home/iu7044/workspace/Alveo_lab1_nikulenko_kernels/src/vitis_rtl_kernel/rtl_kernel_wizard_0/rtl_kernel_wizard_0.xo --config /iu_home/iu7044/workspace/Alveo_lab1_nikulenko.cfg ",
+  "args": [
+   "-l",
+   "-t",
+   "hw",
+   "-o",
+   "/iu_home/iu7044/workspace/Alveo_lab1_nikulenko_kernels/vivado_rtl_kernel/rtl_kernel_wizard_0_ex/exports/vinc.xclbin",
+   "-f",
+   "xilinx_u200_xdma_201830_2",
+   "/iu_home/iu7044/workspace/Alveo_lab1_nikulenko_kernels/src/vitis_rtl_kernel/rtl_kernel_wizard_0/rtl_kernel_wizard_0.xo",
+   "--config",
+   "/iu_home/iu7044/workspace/Alveo_lab1_nikulenko.cfg"
+  ],
+  "iniFiles": [
+   {
+    "path": "/iu_home/iu7044/workspace/Alveo_lab1_nikulenko.cfg",
+    "content": "[connectivity]\n nk=rtl_kernel_wizard_0:1:vinc0\n slr=vinc0:SLR1\n sp=vinc0.m00_axi:DDR[1]\n\n[vivado]\n prop=run.impl_1.STEPS.OPT_DESIGN.ARGS.DIRECTIVE=Explore\n prop=run.impl_1.STEPS.PLACE_DESIGN.ARGS.DIRECTIVE=Explore\n prop=run.impl_1.STEPS.PHYS_OPT_DESIGN.IS_ENABLED=true\n prop=run.impl_1.STEPS.PHYS_OPT_DESIGN.ARGS.DIRECTIVE=AggressiveExplore\n prop=run.impl_1.STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE=Explore\n"
+   }
+  ],
+  "cwd": "/iu_home/iu7044"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 01:02:14 2021",
+ "timestampMillis": "1639000934292",
+ "status": {
+  "cmdId": "31a9276a-efc4-4610-b9da-8cacf05fab7e",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_FlowMetaData",
+ "dateTimestamp": "Thu Dec  9 01:03:27 2021",
+ "timestampMillis": "1639001007316",
+ "buildSummary": {
+  "hardwarePlatform": "xilinx_u200_xdma_201830_2.xpfm",
+  "hardwareDsa": "xilinx_u200_xdma_201830_2.dsa",
+  "platformDirectory": "/opt/xilinx/platforms/xilinx_u200_xdma_201830_2",
+  "runtime": "OpenCL",
+  "systemConfig": "Linux",
+  "flow": "BF_LINK",
+  "target": "TT_HW",
+  "binaryContainer": {
+   "base": {
+    "type": "BT_UKNOWN",
+    "name": "vinc",
+    "file": "/iu_home/iu7044/workspace/Alveo_lab1_nikulenko_kernels/vivado_rtl_kernel/rtl_kernel_wizard_0_ex/exports/vinc.xclbin",
+    "reports": [],
+    "uuid": ""
+   },
+   "kernels": []
+  },
+  "kernels": [
+   {
+    "base": {
+     "type": "KERNEL",
+     "name": "rtl_kernel_wizard_0",
+     "file": "/iu_home/iu7044/workspace/Alveo_lab1_nikulenko_kernels/src/vitis_rtl_kernel/rtl_kernel_wizard_0/rtl_kernel_wizard_0.xo",
+     "reports": [],
+     "uuid": ""
+    },
+    "sources": [],
+    "psSources": [],
+    "cuNames": [
+     "vinc0"
+    ],
+    "type": "RTL",
+    "frequency": 0,
+    "freqUnits": ""
+   }
+  ],
+  "toolVersion": "Vitis V++ Compiler Release 2020.2. SW Build (by xbuild) on 2020-11-18-05:13:29"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Thu Dec  9 01:03:28 2021",
+ "timestampMillis": "1639001008927",
+ "buildStep": {
+  "cmdId": "80e88c66-f9f9-4a25-8ab1-18f46e353ebb",
+  "name": "system_link",
+  "logFile": "",
+  "commandLine": "system_link --xo /iu_home/iu7044/workspace/Alveo_lab1_nikulenko_kernels/src/vitis_rtl_kernel/rtl_kernel_wizard_0/rtl_kernel_wizard_0.xo --config /iu_home/iu7044/_x/link/int/syslinkConfig.ini --xpfm /opt/xilinx/platforms/xilinx_u200_xdma_201830_2/xilinx_u200_xdma_201830_2.xpfm --target hw --output_dir /iu_home/iu7044/_x/link/int --temp_dir /iu_home/iu7044/_x/link/sys_link",
+  "args": [
+   "--xo",
+   "/iu_home/iu7044/workspace/Alveo_lab1_nikulenko_kernels/src/vitis_rtl_kernel/rtl_kernel_wizard_0/rtl_kernel_wizard_0.xo",
+   "--config",
+   "/iu_home/iu7044/_x/link/int/syslinkConfig.ini",
+   "--xpfm",
+   "/opt/xilinx/platforms/xilinx_u200_xdma_201830_2/xilinx_u200_xdma_201830_2.xpfm",
+   "--target",
+   "hw",
+   "--output_dir",
+   "/iu_home/iu7044/_x/link/int",
+   "--temp_dir",
+   "/iu_home/iu7044/_x/link/sys_link"
+  ],
+  "iniFiles": [
+   {
+    "path": "/iu_home/iu7044/_x/link/int/syslinkConfig.ini",
+    "content": "nk=rtl_kernel_wizard_0:1:vinc0\nsp=vinc0.m00_axi:DDR[1]\nslr=vinc0:SLR1\n\n"
+   }
+  ],
+  "cwd": "/iu_home/iu7044"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 01:03:28 2021",
+ "timestampMillis": "1639001008933",
+ "status": {
+  "cmdId": "80e88c66-f9f9-4a25-8ab1-18f46e353ebb",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 01:05:07 2021",
+ "timestampMillis": "1639001107116",
+ "status": {
+  "cmdId": "80e88c66-f9f9-4a25-8ab1-18f46e353ebb",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Thu Dec  9 01:05:07 2021",
+ "timestampMillis": "1639001107184",
+ "buildStep": {
+  "cmdId": "068077fa-ef99-44f1-a160-c12a0fdea969",
+  "name": "cf2sw",
+  "logFile": "",
+  "commandLine": "cf2sw -sdsl /iu_home/iu7044/_x/link/int/sdsl.dat -rtd /iu_home/iu7044/_x/link/int/cf2sw.rtd -nofilter /iu_home/iu7044/_x/link/int/cf2sw_full.rtd -xclbin /iu_home/iu7044/_x/link/int/xclbin_orig.xml -o /iu_home/iu7044/_x/link/int/xclbin_orig.1.xml",
+  "args": [
+   "-sdsl",
+   "/iu_home/iu7044/_x/link/int/sdsl.dat",
+   "-rtd",
+   "/iu_home/iu7044/_x/link/int/cf2sw.rtd",
+   "-nofilter",
+   "/iu_home/iu7044/_x/link/int/cf2sw_full.rtd",
+   "-xclbin",
+   "/iu_home/iu7044/_x/link/int/xclbin_orig.xml",
+   "-o",
+   "/iu_home/iu7044/_x/link/int/xclbin_orig.1.xml"
+  ],
+  "iniFiles": [],
+  "cwd": "/iu_home/iu7044"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 01:05:07 2021",
+ "timestampMillis": "1639001107188",
+ "status": {
+  "cmdId": "068077fa-ef99-44f1-a160-c12a0fdea969",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 01:05:25 2021",
+ "timestampMillis": "1639001125580",
+ "status": {
+  "cmdId": "068077fa-ef99-44f1-a160-c12a0fdea969",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Thu Dec  9 01:05:25 2021",
+ "timestampMillis": "1639001125626",
+ "buildStep": {
+  "cmdId": "60d21d1e-94ca-4085-9ef3-f627738b8e02",
+  "name": "rtd2_system_diagram",
+  "logFile": "",
+  "commandLine": "rtd2SystemDiagram",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/iu_home/iu7044"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 01:05:25 2021",
+ "timestampMillis": "1639001125630",
+ "status": {
+  "cmdId": "60d21d1e-94ca-4085-9ef3-f627738b8e02",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Thu Dec  9 01:05:36 2021",
+ "timestampMillis": "1639001136811",
+ "report": {
+  "path": "/iu_home/iu7044/_x/link/int/systemDiagramModel.json",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "SYSTEM_DIAGRAM"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 01:05:36 2021",
+ "timestampMillis": "1639001136826",
+ "status": {
+  "cmdId": "60d21d1e-94ca-4085-9ef3-f627738b8e02",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Thu Dec  9 01:05:36 2021",
+ "timestampMillis": "1639001136908",
+ "buildStep": {
+  "cmdId": "5f71dd84-4885-4cff-a387-09d37df7182c",
+  "name": "vpl",
+  "logFile": "",
+  "commandLine": "vpl -t hw -f xilinx_u200_xdma_201830_2 --remote_ip_cache /iu_home/iu7044/.ipcache --output_dir /iu_home/iu7044/_x/link/int --log_dir /iu_home/iu7044/_x/logs/link --report_dir /iu_home/iu7044/_x/reports/link --config /iu_home/iu7044/_x/link/int/vplConfig.ini -k /iu_home/iu7044/_x/link/int/kernel_info.dat --webtalk_flag Vitis --temp_dir /iu_home/iu7044/_x/link --no-info --iprepo /iu_home/iu7044/_x/link/int/xo/ip_repo/mycompany_com_kernel_rtl_kernel_wizard_0_1_0 --messageDb /iu_home/iu7044/_x/link/run_link/vpl.pb /iu_home/iu7044/_x/link/int/dr.bd.tcl",
+  "args": [
+   "-t",
+   "hw",
+   "-f",
+   "xilinx_u200_xdma_201830_2",
+   "--remote_ip_cache",
+   "/iu_home/iu7044/.ipcache",
+   "--output_dir",
+   "/iu_home/iu7044/_x/link/int",
+   "--log_dir",
+   "/iu_home/iu7044/_x/logs/link",
+   "--report_dir",
+   "/iu_home/iu7044/_x/reports/link",
+   "--config",
+   "/iu_home/iu7044/_x/link/int/vplConfig.ini",
+   "-k",
+   "/iu_home/iu7044/_x/link/int/kernel_info.dat",
+   "--webtalk_flag",
+   "Vitis",
+   "--temp_dir",
+   "/iu_home/iu7044/_x/link",
+   "--no-info",
+   "--iprepo",
+   "/iu_home/iu7044/_x/link/int/xo/ip_repo/mycompany_com_kernel_rtl_kernel_wizard_0_1_0",
+   "--messageDb",
+   "/iu_home/iu7044/_x/link/run_link/vpl.pb",
+   "/iu_home/iu7044/_x/link/int/dr.bd.tcl"
+  ],
+  "iniFiles": [
+   {
+    "path": "/iu_home/iu7044/_x/link/int/vplConfig.ini",
+    "content": "[advanced]\nmisc=report=type report_timing_summary name impl_report_timing_summary_route_design_summary steps {route_design} runs {impl_1} options {-max_paths 10}\nmisc=report=type report_timing_summary name impl_report_timing_summary_post_route_phys_opt_design_summary steps {post_route_phys_opt_design} runs {impl_1} options {-max_paths 10}\nparam=compiler.enablePerformanceTrace=1\nparam=compiler.vppCurrentWorkingDir=/iu_home/iu7044\nmisc=BinaryName=vinc\n\n[connectivity]\nnk=rtl_kernel_wizard_0:1:vinc0\n\n[vivado]\nprop=run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS}={-directive sdx_optimization_effort_high}\nprop=run.impl_1.STEPS.OPT_DESIGN.ARGS.DIRECTIVE=Explore\nprop=run.impl_1.STEPS.PLACE_DESIGN.ARGS.DIRECTIVE=Explore\nprop=run.impl_1.STEPS.PHYS_OPT_DESIGN.IS_ENABLED=true\nprop=run.impl_1.STEPS.PHYS_OPT_DESIGN.ARGS.DIRECTIVE=AggressiveExplore\nprop=run.impl_1.STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE=Explore\n\n"
+   }
+  ],
+  "cwd": "/iu_home/iu7044"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 01:05:36 2021",
+ "timestampMillis": "1639001136916",
+ "status": {
+  "cmdId": "5f71dd84-4885-4cff-a387-09d37df7182c",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Thu Dec  9 01:05:51 2021",
+ "timestampMillis": "1639001151379",
+ "buildStep": {
+  "cmdId": "6ea49efc-ef48-427a-9a6b-dfcddec87f1b",
+  "name": "vpl",
+  "logFile": "/iu_home/iu7044/_x/link/link.steps.log",
+  "commandLine": "/data/Xilinx/Vitis/2020.2/bin/unwrapped/lnx64.o/vpl -t hw -f xilinx_u200_xdma_201830_2 --remote_ip_cache /iu_home/iu7044/.ipcache --output_dir /iu_home/iu7044/_x/link/int --log_dir /iu_home/iu7044/_x/logs/link --report_dir /iu_home/iu7044/_x/reports/link --config /iu_home/iu7044/_x/link/int/vplConfig.ini -k /iu_home/iu7044/_x/link/int/kernel_info.dat --webtalk_flag Vitis --temp_dir /iu_home/iu7044/_x/link --no-info --iprepo /iu_home/iu7044/_x/link/int/xo/ip_repo/mycompany_com_kernel_rtl_kernel_wizard_0_1_0 --messageDb /iu_home/iu7044/_x/link/run_link/vpl.pb /iu_home/iu7044/_x/link/int/dr.bd.tcl ",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/iu_home/iu7044/_x/link/run_link"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 01:05:51 2021",
+ "timestampMillis": "1639001151383",
+ "status": {
+  "cmdId": "6ea49efc-ef48-427a-9a6b-dfcddec87f1b",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_VivadoProject",
+ "dateTimestamp": "Thu Dec  9 01:09:32 2021",
+ "timestampMillis": "1639001372512",
+ "vivadoProject": {
+  "openDir": "/iu_home/iu7044/_x/link/vivado/vpl",
+  "openScript": "openprj.tcl",
+  "relativeProject": "prj/prj.xpr"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Thu Dec  9 01:09:32 2021",
+ "timestampMillis": "1639001372541",
+ "buildStep": {
+  "cmdId": "8f03838d-6d1f-4c5d-a160-8a1ba69810ea",
+  "name": "vivado",
+  "logFile": "/iu_home/iu7044/_x/link/vivado/vpl/vivado.log",
+  "commandLine": "vivado -log vivado.log -applog -m64 -messageDb vivado.pb -mode batch -source vpl.tcl -notrace",
+  "args": [
+   "-log",
+   "vivado.log",
+   "-applog",
+   " -m64",
+   "-messageDb",
+   "vivado.pb",
+   "-mode",
+   "batch",
+   "-source",
+   "vpl.tcl",
+   "-notrace"
+  ],
+  "iniFiles": [],
+  "cwd": "/iu_home/iu7044/_x/link/run_link"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 01:09:32 2021",
+ "timestampMillis": "1639001372547",
+ "status": {
+  "cmdId": "8f03838d-6d1f-4c5d-a160-8a1ba69810ea",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Thu Dec  9 01:22:02 2021",
+ "timestampMillis": "1639002122447",
+ "report": {
+  "path": "/iu_home/iu7044/_x/link/int/debug_ip_layout.rtd",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "DEBUG_IP_LAYOUT"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 11:25:51 2021",
+ "timestampMillis": "1639038351247",
+ "status": {
+  "cmdId": "8f03838d-6d1f-4c5d-a160-8a1ba69810ea",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Thu Dec  9 11:25:52 2021",
+ "timestampMillis": "1639038352131",
+ "report": {
+  "path": "/iu_home/iu7044/_x/reports/link/imp/impl_1_slr_util_routed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_SLR_UTIL_ROUTED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Thu Dec  9 11:25:52 2021",
+ "timestampMillis": "1639038352158",
+ "report": {
+  "path": "/iu_home/iu7044/_x/reports/link/imp/impl_1_slr_util_routed.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_SLR_UTIL_ROUTED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Thu Dec  9 11:25:52 2021",
+ "timestampMillis": "1639038352217",
+ "report": {
+  "path": "/iu_home/iu7044/_x/reports/link/imp/impl_1_full_util_routed.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_UTILIZATION_ROUTE"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Thu Dec  9 11:25:52 2021",
+ "timestampMillis": "1639038352240",
+ "report": {
+  "path": "/iu_home/iu7044/_x/reports/link/imp/impl_1_slr_util_placed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_SLR_UTIL_PLACED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Thu Dec  9 11:25:52 2021",
+ "timestampMillis": "1639038352262",
+ "report": {
+  "path": "/iu_home/iu7044/_x/reports/link/imp/impl_1_slr_util_placed.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_SLR_UTIL_PLACED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Thu Dec  9 11:25:52 2021",
+ "timestampMillis": "1639038352299",
+ "report": {
+  "path": "/iu_home/iu7044/_x/reports/link/imp/impl_1_full_util_routed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_UTILIZATION_ROUTE"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Thu Dec  9 11:25:55 2021",
+ "timestampMillis": "1639038355172",
+ "report": {
+  "path": "/iu_home/iu7044/_x/reports/link/imp/impl_1_xilinx_u200_xdma_201830_2_bb_locked_timing_summary_routed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_TIMING_SUMMARY"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Thu Dec  9 11:25:55 2021",
+ "timestampMillis": "1639038355471",
+ "report": {
+  "path": "/iu_home/iu7044/_x/reports/link/imp/impl_1_xilinx_u200_xdma_201830_2_bb_locked_timing_summary_routed.rpx",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_REPORT_TIMING_SUMMARY"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 11:26:20 2021",
+ "timestampMillis": "1639038380075",
+ "status": {
+  "cmdId": "6ea49efc-ef48-427a-9a6b-dfcddec87f1b",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 11:26:20 2021",
+ "timestampMillis": "1639038380230",
+ "status": {
+  "cmdId": "5f71dd84-4885-4cff-a387-09d37df7182c",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Thu Dec  9 11:26:20 2021",
+ "timestampMillis": "1639038380326",
+ "buildStep": {
+  "cmdId": "2d431c0e-1328-4f82-8ddd-0e508c2fb095",
+  "name": "rtdgen",
+  "logFile": "",
+  "commandLine": "rtdgen",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/iu_home/iu7044"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 11:26:20 2021",
+ "timestampMillis": "1639038380331",
+ "status": {
+  "cmdId": "2d431c0e-1328-4f82-8ddd-0e508c2fb095",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Thu Dec  9 11:26:20 2021",
+ "timestampMillis": "1639038380370",
+ "report": {
+  "path": "/iu_home/iu7044/_x/link/int/vinc_xml.rtd",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "XCLBIN_INFO"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Thu Dec  9 11:26:20 2021",
+ "timestampMillis": "1639038380407",
+ "buildStep": {
+  "cmdId": "3627e71f-5983-4af3-aaa1-85a635fc3aca",
+  "name": "cf2sw",
+  "logFile": "",
+  "commandLine": "cf2sw -a /iu_home/iu7044/_x/link/int/address_map.xml -sdsl /iu_home/iu7044/_x/link/int/sdsl.dat -xclbin /iu_home/iu7044/_x/link/int/xclbin_orig.xml -rtd /iu_home/iu7044/_x/link/int/vinc.rtd -o /iu_home/iu7044/_x/link/int/vinc.xml",
+  "args": [
+   "-a",
+   "/iu_home/iu7044/_x/link/int/address_map.xml",
+   "-sdsl",
+   "/iu_home/iu7044/_x/link/int/sdsl.dat",
+   "-xclbin",
+   "/iu_home/iu7044/_x/link/int/xclbin_orig.xml",
+   "-rtd",
+   "/iu_home/iu7044/_x/link/int/vinc.rtd",
+   "-o",
+   "/iu_home/iu7044/_x/link/int/vinc.xml"
+  ],
+  "iniFiles": [],
+  "cwd": "/iu_home/iu7044"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 11:26:20 2021",
+ "timestampMillis": "1639038380413",
+ "status": {
+  "cmdId": "3627e71f-5983-4af3-aaa1-85a635fc3aca",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 11:26:35 2021",
+ "timestampMillis": "1639038395526",
+ "status": {
+  "cmdId": "3627e71f-5983-4af3-aaa1-85a635fc3aca",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Thu Dec  9 11:26:35 2021",
+ "timestampMillis": "1639038395579",
+ "report": {
+  "path": "/iu_home/iu7044/_x/link/int/systemDiagramModelSlrBaseAddress.json",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "SYSTEM_DIAGRAM_PLUS"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Thu Dec  9 11:26:35 2021",
+ "timestampMillis": "1639038395583",
+ "buildStep": {
+  "cmdId": "320246c3-aed8-48fd-80b0-9ce12ca7e9bc",
+  "name": "rtdgen",
+  "logFile": "",
+  "commandLine": "writeSystemDiagram",
+  "args": [
+   "/iu_home/iu7044/_x/link/int/vinc.rtd",
+   "/iu_home/iu7044/_x/link/int/systemDiagramModelSlrBaseAddress.json"
+  ],
+  "iniFiles": [],
+  "cwd": "/iu_home/iu7044"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 11:26:35 2021",
+ "timestampMillis": "1639038395585",
+ "status": {
+  "cmdId": "320246c3-aed8-48fd-80b0-9ce12ca7e9bc",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 11:26:35 2021",
+ "timestampMillis": "1639038395606",
+ "status": {
+  "cmdId": "320246c3-aed8-48fd-80b0-9ce12ca7e9bc",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 11:26:35 2021",
+ "timestampMillis": "1639038395615",
+ "status": {
+  "cmdId": "2d431c0e-1328-4f82-8ddd-0e508c2fb095",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Thu Dec  9 11:26:35 2021",
+ "timestampMillis": "1639038395667",
+ "buildStep": {
+  "cmdId": "03c390d9-88a8-4ddd-8f78-1cbfb90f966e",
+  "name": "xclbinutil",
+  "logFile": "",
+  "commandLine": "xclbinutil --add-section DEBUG_IP_LAYOUT:JSON:/iu_home/iu7044/_x/link/int/debug_ip_layout.rtd --add-section BITSTREAM:RAW:/iu_home/iu7044/_x/link/int/partial.bit --force --target hw --key-value SYS:dfx_enable:true --add-section :JSON:/iu_home/iu7044/_x/link/int/vinc.rtd --append-section :JSON:/iu_home/iu7044/_x/link/int/appendSection.rtd --add-section CLOCK_FREQ_TOPOLOGY:JSON:/iu_home/iu7044/_x/link/int/vinc_xml.rtd --add-section BUILD_METADATA:JSON:/iu_home/iu7044/_x/link/int/vinc_build.rtd --add-section EMBEDDED_METADATA:RAW:/iu_home/iu7044/_x/link/int/vinc.xml --add-section SYSTEM_METADATA:RAW:/iu_home/iu7044/_x/link/int/systemDiagramModelSlrBaseAddress.json --output /iu_home/iu7044/workspace/Alveo_lab1_nikulenko_kernels/vivado_rtl_kernel/rtl_kernel_wizard_0_ex/exports/vinc.xclbin",
+  "args": [
+   "--add-section",
+   "DEBUG_IP_LAYOUT:JSON:/iu_home/iu7044/_x/link/int/debug_ip_layout.rtd",
+   "--add-section",
+   "BITSTREAM:RAW:/iu_home/iu7044/_x/link/int/partial.bit",
+   "--force",
+   "--target",
+   "hw",
+   "--key-value",
+   "SYS:dfx_enable:true",
+   "--add-section",
+   ":JSON:/iu_home/iu7044/_x/link/int/vinc.rtd",
+   "--append-section",
+   ":JSON:/iu_home/iu7044/_x/link/int/appendSection.rtd",
+   "--add-section",
+   "CLOCK_FREQ_TOPOLOGY:JSON:/iu_home/iu7044/_x/link/int/vinc_xml.rtd",
+   "--add-section",
+   "BUILD_METADATA:JSON:/iu_home/iu7044/_x/link/int/vinc_build.rtd",
+   "--add-section",
+   "EMBEDDED_METADATA:RAW:/iu_home/iu7044/_x/link/int/vinc.xml",
+   "--add-section",
+   "SYSTEM_METADATA:RAW:/iu_home/iu7044/_x/link/int/systemDiagramModelSlrBaseAddress.json",
+   "--output",
+   "/iu_home/iu7044/workspace/Alveo_lab1_nikulenko_kernels/vivado_rtl_kernel/rtl_kernel_wizard_0_ex/exports/vinc.xclbin"
+  ],
+  "iniFiles": [],
+  "cwd": "/iu_home/iu7044"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 11:26:35 2021",
+ "timestampMillis": "1639038395674",
+ "status": {
+  "cmdId": "03c390d9-88a8-4ddd-8f78-1cbfb90f966e",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 11:26:37 2021",
+ "timestampMillis": "1639038397871",
+ "status": {
+  "cmdId": "03c390d9-88a8-4ddd-8f78-1cbfb90f966e",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Thu Dec  9 11:26:37 2021",
+ "timestampMillis": "1639038397910",
+ "buildStep": {
+  "cmdId": "4d47fdc3-929b-4165-be68-582e6eac6d1b",
+  "name": "xclbinutilinfo",
+  "logFile": "",
+  "commandLine": "xclbinutil --quiet --force --info /iu_home/iu7044/workspace/Alveo_lab1_nikulenko_kernels/vivado_rtl_kernel/rtl_kernel_wizard_0_ex/exports/vinc.xclbin.info --input /iu_home/iu7044/workspace/Alveo_lab1_nikulenko_kernels/vivado_rtl_kernel/rtl_kernel_wizard_0_ex/exports/vinc.xclbin",
+  "args": [
+   "--quiet",
+   "--force",
+   "--info",
+   "/iu_home/iu7044/workspace/Alveo_lab1_nikulenko_kernels/vivado_rtl_kernel/rtl_kernel_wizard_0_ex/exports/vinc.xclbin.info",
+   "--input",
+   "/iu_home/iu7044/workspace/Alveo_lab1_nikulenko_kernels/vivado_rtl_kernel/rtl_kernel_wizard_0_ex/exports/vinc.xclbin"
+  ],
+  "iniFiles": [],
+  "cwd": "/iu_home/iu7044"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 11:26:37 2021",
+ "timestampMillis": "1639038397913",
+ "status": {
+  "cmdId": "4d47fdc3-929b-4165-be68-582e6eac6d1b",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 11:26:41 2021",
+ "timestampMillis": "1639038401266",
+ "status": {
+  "cmdId": "4d47fdc3-929b-4165-be68-582e6eac6d1b",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Thu Dec  9 11:26:41 2021",
+ "timestampMillis": "1639038401319",
+ "buildStep": {
+  "cmdId": "d83c7fee-17bb-4038-97b0-0fd68debdc67",
+  "name": "generate_sc_driver",
+  "logFile": "",
+  "commandLine": "",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/iu_home/iu7044"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 11:26:41 2021",
+ "timestampMillis": "1639038401322",
+ "status": {
+  "cmdId": "d83c7fee-17bb-4038-97b0-0fd68debdc67",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 11:26:41 2021",
+ "timestampMillis": "1639038401339",
+ "status": {
+  "cmdId": "d83c7fee-17bb-4038-97b0-0fd68debdc67",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Thu Dec  9 11:26:41 2021",
+ "timestampMillis": "1639038401438",
+ "report": {
+  "path": "/iu_home/iu7044/_x/reports/link/system_estimate_vinc.xtxt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_SYSTEM_ESTIMATE"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Thu Dec  9 11:26:51 2021",
+ "timestampMillis": "1639038411741",
+ "report": {
+  "path": "/iu_home/iu7044/_x/reports/link/v++_link_vinc_guidance.html",
+  "name": "",
+  "fileType": "HTML",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Thu Dec  9 11:26:51 2021",
+ "timestampMillis": "1639038411747",
+ "report": {
+  "path": "/iu_home/iu7044/_x/v++_link_vinc_guidance.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Thu Dec  9 11:26:51 2021",
+ "timestampMillis": "1639038411772",
+ "report": {
+  "path": "/iu_home/iu7044/_x/logs/optraceViewer.html",
+  "name": "",
+  "fileType": "HTML",
+  "reportType": "OPERATION_TRACE"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Thu Dec  9 11:26:51 2021",
+ "timestampMillis": "1639038411797",
+ "status": {
+  "cmdId": "31a9276a-efc4-4610-b9da-8cacf05fab7e",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>

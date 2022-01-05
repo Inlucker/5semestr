@@ -1,0 +1,11 @@
+[connectivity]
+ nk=rtl_kernel_vinc:2:vinc0.vinc1
+ slr=vinc0:SLR1
+ sp=vinc0.axi4_0:DDR[1]
+
+[vivado]
+ prop=run.impl_1.STEPS.OPT_DESIGN.ARGS.DIRECTIVE=Explore
+ prop=run.impl_1.STEPS.PLACE_DESIGN.ARGS.DIRECTIVE=Explore
+ prop=run.impl_1.STEPS.PHYS_OPT_DESIGN.IS_ENABLED=true
+ prop=run.impl_1.STEPS.PHYS_OPT_DESIGN.ARGS.DIRECTIVE=AggressiveExplore
+ prop=run.impl_1.STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE=Explore

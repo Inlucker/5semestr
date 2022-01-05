@@ -1,0 +1,125 @@
+\setcounter{chapter}{1}
+
+\section{Исходные тексты программ}
+
+Ниже в листинге \ref{code:code_1} приведен изначальный код программы (ядра для ускорителя) в соответствии с моим вариантом.
+
+\begin{lstlisting}[label=code:code_1, caption=Код исходной программы]
+	extern "C" {
+		void var014(int* c, const int* a, const int* b, const int len) {
+			int tmpA = 0;
+			int tmpB = 0;
+			for (int i = 0; i < len; i++) {
+				tmpA += a[i] * i;
+				tmpB += b[i] * i;
+			}
+			for (int i = 0; i < len; i+=2) {
+				c[i] = tmpA;
+				c[i+1] = tmpB;
+			}
+		}
+	}
+\end{lstlisting}
+
+Ниже в листингах \ref{code:code_2} - \ref{code:code_4} приведен код программ, в которых использовались директивы, указывающие компилятору оптимизировать программу.
+
+\begin{lstlisting}[label=code:code_2, caption=Конвейерное исполнение]
+	extern "C" {
+		void var014(int* c, const int* a, const int* b, const int len) {
+			int tmpA = 0;
+			int tmpB = 0;
+			for (int i = 0; i < len; i++) {
+				#pragma HLS PIPELINE
+				tmpA += a[i] * i;
+				tmpB += b[i] * i;
+			}
+			for (int i = 0; i < len; i+=2) {
+				#pragma HLS PIPELINE
+				c[i] = tmpA;
+				c[i+1] = tmpB;
+			}
+		}
+	}
+\end{lstlisting}
+
+
+\newpage
+\begin{lstlisting}[label=code:code_3, caption=Развернутый цикл]
+	extern "C" {
+		void var014(int* c, const int* a, const int* b, const int len) {
+			int tmpA = 0;
+			int tmpB = 0;
+			for (int i = 0; i < len; i++) {
+				#pragma HLS UNROLL  factor=2
+				tmpA += a[i] * i;
+				tmpB += b[i] * i;
+			}
+			for (int i = 0; i < len; i+=2) {
+				#pragma HLS UNROLL  factor=2
+				c[i] = tmpA;
+				c[i+1] = tmpB;
+			}
+		}
+	}
+\end{lstlisting}
+
+
+\begin{lstlisting}[label=code:code_4, caption=Развернутый цикл и конвейерное исполнение]
+	extern "C" {
+		void var014(int* c, const int* a, const int* b, const int len) {
+			int tmpA = 0;
+			int tmpB = 0;
+			for (int i = 0; i < len; i++) {
+				#pragma HLS UNROLL  factor=2
+				#pragma HLS PIPELINE
+				tmpA += a[i] * i;
+				tmpB += b[i] * i;
+			}
+			for (int i = 0; i < len; i+=2) {
+				#pragma HLS UNROLL  factor=2
+				#pragma HLS PIPELINE
+				c[i] = tmpA;
+				c[i+1] = tmpB;
+			}
+		}
+	}
+\end{lstlisting}
+
+\newpage
+\section{Результаты работы}
+
+Ниже на рисунке \ref{img:sw-console} приведены результаты эмуляции выполнения ядра на центральном процессоре.
+
+\imgsc{H}{0.65}{sw-console}{Результаты программной эмуляции}
+
+Ниже на рисунках \ref{img:assistant_1} - \ref{img:assistant_2} приведена копия экрана с открытым Assistant view.
+
+\imgsc{H}{0.45}{assistant_1}{Копия экрана с открытым Assistant view}
+
+\imgsc{H}{0.45}{assistant_2}{Копия экрана с открытым Assistant view (продолжение)}
+
+%\imgsc{H}{0.5}{emulation_рw_result}{Результаты программной эмуляции}
+
+Ниже на рисунке \ref{img:hw} приведены результаты работы приложения в режиме Emulation-HW.
+
+\imgsc{H}{0.35}{hw}{Результаты работы приложения в режиме Emulation-HW}
+
+\imgsc{H}{0.75}{hw-console}{Сравнительная таблица с временем выполнения}
+
+Ниже на рисунках \ref{img:hardware-console} - \ref{img:platform_diagram} приведены результаты синтеза программы для ускорителя.
+
+\imgsc{H}{0.65}{hardware-console}{Сравнительная таблица с временем выполнения}
+
+\imgsc{H}{0.35}{system_diagram}{Диаграмма системы}
+
+\imgsc{H}{0.35}{platform_diagram}{Диаграмма платформы}
+
+% Сделать примечание, что я заместо деления использовал сдвиг право
+
+\imgsc{H}{0.45}{hls_no_pragmas}{Информация о компонентах для реализации без оптимизации}
+
+\imgsc{H}{0.45}{hls_pipelined}{Информация о компонентах для реализации с конвейеризацией}
+
+\imgsc{H}{0.45}{hls_pipe_unroll}{Информация о компонентах для реализации с развертыванием циклов}
+
+\imgsc{H}{0.45}{hls_unrolled}{Информация о компонентах для реализации с конвейеризацией и развертыванием циклов}

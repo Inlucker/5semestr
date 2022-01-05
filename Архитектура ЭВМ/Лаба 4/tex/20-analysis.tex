@@ -1,0 +1,83 @@
+\setcounter{chapter}{1}
+
+\section{Функциональная схема разрабатываемой аппаратной системы}
+
+\section{Изучение работа шины AXI}
+
+По моему варианту требовалось реализовать функцию в соответствии с формулой \ref{eq:eq_1}.
+
+\begin{equation}
+\label{eq:eq_1}
+R[i] = A[i]/16 - 11
+\end{equation}
+
+\begin{lstlisting}[label=code:adder_func, caption=Изменный код модуля rtl\_kernel\_wizard\_0\_example\_adder.v]
+// Adder function
+always @(posedge s_axis_aclk) begin
+  for (i = 0; i < LP_NUM_LOOPS; i = i + 1) begin
+    d2_tdata[i*C_ADDER_BIT_WIDTH+:C_ADDER_BIT_WIDTH] <= d1_tdata[C_ADDER_BIT_WIDTH*i+:C_ADDER_BIT_WIDTH]/16 - 11;
+  end
+end
+\end{lstlisting}
+
+Далее приведены диаграммы, иллюстрирующие процесс рукопожатия и пакетного чтения. 
+
+Чтобы указать завершение пакетного чтения и записи, устройство использует сигнал RLAST. На диаграмме этого нельзя увидеть, так как изначально было указано малое время симуляции.
+
+Ниже на рисунке \ref{img:test_read_transaction} приведена транзакция чтения данных вектора на шине AXI4 MM из DDR памяти.
+
+\imgsc{H}{0.35}{test_read_transaction}{Транзакция чтения данных вектора на шине AXI4 MM из DDR памяти.}
+
+Ниже на рисунке \ref{img:test_write_transaction} приведена транзакция записи результата инкремента данных на шине AXI4 MM. Видно, что каждое прочитанное значение было инкрементировано.
+
+\imgsc{H}{0.3}{test_write_transaction}{Транзакция записи результата инкремента данных на шине AXI4 MM}
+
+Ниже на рисунке \ref{img:test_inc} приведен инкремент данных на шине AXI4 MM.
+
+\imgsc{H}{0.7}{test_inc}{Инкремент данных на шине AXI4 MM}
+
+Ниже на рисунке \ref{img:adder_code} приведен фрагмент кода модуля tl\_kernel\_wizard\_0\_example\_adder.v (до изменения) с выполнением инкрементирования данных.
+
+\imgsc{H}{0.55}{adder_code}{Код модуля tl\_kernel\_wizard\_0\_example\_adder.v с выполнением инкрементирования данных}
+
+Теперь изменим модуль rtl\_kernel\_wizard\_0\_example\_adder.v, чтобы ускоритель выполнял предложенную функцию.
+
+\imgsc{H}{0.45}{read_transaction}{Транзакция чтения данных вектора на шине AXI4 MM из DDR памяти.}
+
+\imgsc{H}{0.45}{write_transaction}{Транзакция записи результата инкремента данных на шине AXI4 MM}
+
+\imgsc{H}{0.45}{inc}{Инкремент данных на шине AXI4 MM}
+
+\section{Сборка проекта}
+
+Ниже в листинге \ref{conf} приведено содержимое конфигурационного файла. В соответствии с вариантом требовалось использовать регионы SLR1 и DDR[1].
+
+\begin{lstinputlisting}[
+	caption={Содержимое конфигурационного файла},
+	label={conf},
+	]{inc/img/conf.txt}
+\end{lstinputlisting}
+
+Содержимое файлов v++*.log и *.xclbin.info. приведено в приложениях Б и В.
+
+\section{Запуск программного обеспечения на хост-системе}
+
+Ниже, в листинге \ref{code:hostexample1} приведены измененные части кода модифицированного модуля host\_example.cpp. 
+
+\begin{lstlisting}[label=code:hostexample1, caption=Модуль host\_example.cpp]
+   ...
+    for (cl_uint i = 0; i < number_of_words; i++) {
+    	if ((h_data[i]/16 - 11) != h_axi00_ptr0_output[i]) {
+    		printf("ERROR in rtl_kernel_wizard_0::m00_axi - array index %d (host addr 0x%03x) - input=%d (0x%x), output=%d (0x%x)\n", i, i*4, h_data[i], h_data[i], h_axi00_ptr0_output[i], h_axi00_ptr0_output[i]);
+    		check_status = 1;
+    	}
+    	//  printf("i=%d, input=%d, output=%d\n", i,  h_axi00_ptr0_input[i], h_axi00_ptr0_output[i]);
+    }
+    ...
+} // end of main
+\end{lstlisting}
+
+Ниже на рисунке \ref{img:final} приведены результаты тестирования.
+
+\imgsc{H}{0.5}{final}{Результаты тестирования}
+
